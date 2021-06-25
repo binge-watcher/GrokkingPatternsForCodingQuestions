@@ -42,12 +42,13 @@ public class ReverseSubList {
         node.next.next.next = new Node(4);
         node.next.next.next.next = new Node(5);
 
-        Node head = ReverseSubList.reverse(node,1,4);
+        Node head = ReverseSubList.reverse(node,2,5);
         while(head!=null){
             System.out.print(head.value+" ");
             head=head.next;
         }
 
     }
+
 
 }

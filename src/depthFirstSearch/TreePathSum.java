@@ -5,15 +5,10 @@ public class TreePathSum {
 
     public static boolean hasPath(TreeNode root, int sum) {
 
-        if (root == null)
-            return false;
-
+        if (root == null)   return false;
         if (root.left == null && root.right == null)
             return root.val == sum;
-
-        int new_Sum = sum - root.val;
-
-        return hasPath(root.left, new_Sum) || hasPath(root.right, new_Sum);
+        return hasPath(root.left, sum-root.val) || hasPath(root.right, sum-root.val);
     }
 
 

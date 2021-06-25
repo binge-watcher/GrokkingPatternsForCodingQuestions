@@ -2,6 +2,9 @@ package cyclicSort;
 
 public class CyclicSort {
 
+    //check if number at a[i] == i+1
+    //if not then swap a[i] with the number at its correct position which is - a [ a[i] -1 ]
+
     public static void main(String[] args) {
         int[] arr = new int[] { 3, 1, 5, 4, 2 };
         CyclicSort.sort(arr);
@@ -22,23 +25,24 @@ public class CyclicSort {
         System.out.println();
     }
 
-    private static void sort(int[] arr) {
-    int i=0;
-    while(i<arr.length){
-        int index = arr[i] -1;
-        if(arr[index]!=arr[i]){
-            swap(arr, index, i);
-        }else{
-            i++;
+    public static void sort(int[] nums) {
+        int i=0;
+        while(i<nums.length){
+        //EG - nums[1] =5, is 5 at its correct place?
+            // ie, at index 4?
+            //check value at nums[ num[i] -1] = nums[5-1]
+            if(nums[i]!= nums[nums[i]-1]){
+                swap(nums,i,nums[i]-1);
+            }else{
+                i++;
+            }
         }
     }
 
-    }
-
-    private static void swap(int[] arr, int i, int j) {
-        int temp = arr[i];
-        arr[i]=arr[j];
-        arr[j]=temp;
+    private static void swap(int[] nums, int a, int b) {
+        int temp = nums[a];
+        nums[a] = nums[b];
+        nums[b]= temp;
     }
 
 }

@@ -12,18 +12,25 @@ public class FindAllTreePaths {
         return allPaths;
     }
 
-    private static void findPath(TreeNode root, int sum, List<Integer> currentPath, List<List<Integer>> allPaths) {
-        if (root == null)
+    private static void findPath(TreeNode currentNode, int sum, List<Integer> currentPath, List<List<Integer>> allPaths) {
+        if (currentNode == null)
             return;
 
-        currentPath.add(root.val);
-        //stopping condition
-        if (root.val == sum && root.left == null && root.right == null) {
-            allPaths.add(new ArrayList<>(currentPath));
+        // add the current node to the path
+        currentPath.add(currentNode.val);
+
+        // if the current node is a leaf and its value is equal to sum, save the current path
+        if (currentNode.val == sum && currentNode.left == null && currentNode.right == null) {
+            allPaths.add(new ArrayList<Integer>(currentPath));
         } else {
-            findPath(root.left, sum - root.val, currentPath, allPaths);
-            findPath(root.right, sum - root.val, currentPath, allPaths);
+            // traverse the left sub-tree
+            findPath(currentNode.left, sum - currentNode.val, currentPath, allPaths);
+            // traverse the right sub-tree
+            findPath(currentNode.right, sum - currentNode.val, currentPath, allPaths);
         }
+
+        // remove the current node from the path to backtrack,
+        // we need to remove the current node while we are going up the recursive call stack.
         currentPath.remove(currentPath.size() - 1);
     }
 
@@ -35,19 +42,8 @@ public class FindAllTreePaths {
         root.right.left = new TreeNode(10);
         root.right.right = new TreeNode(5);
         int sum = 23;
-
-        //12->7 -> 4 = 23
-        //12 -> 1 -> 10 = 23
-        // 12 -> 1 -> 5 = 18
-        // List<List<Integer>> result = FindAllTreePaths.findPaths(root, sum);
-        //System.out.println("Tree paths with sum " + sum + ": " + result);
-
-
-        //   List<List<Integer>> result1 = FindAllTreePaths.findAllPaths(root);
-        //   System.out.println("Tree paths " + sum + ": " + result1);
-
-        List<Integer> result2 = FindAllTreePaths.findMaxPath(root);
-        System.out.println("Tree max paths " + ": " + result2);
+        List<List<Integer>> result = FindAllTreePaths.findPaths(root, sum);
+        System.out.println("Tree paths with sum " + sum + ": " + result);
     }
 
     static List<List<Integer>> findAllPaths(TreeNode root) {

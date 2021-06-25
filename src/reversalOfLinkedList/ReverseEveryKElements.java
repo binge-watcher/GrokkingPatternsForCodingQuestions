@@ -52,12 +52,43 @@ public class ReverseEveryKElements {
         node.next.next.next.next.next = new Node(6);
         node.next.next.next.next.next.next = new Node(7);
         node.next.next.next.next.next.next.next = new Node(8);
-        Node head = ReverseEveryKElements.reverse(node,3);
+        Node head = ReverseEveryKElements.reverseAgain(node,3);
         while(head!=null){
             System.out.print(head.value+" ");
             head=head.next;
         }
 
     }
+
+    //1->2->3->4->5->6->7
+    // 1<-2<-3 4
+    // 3->2->1  ->4->5->6
+    //reverse
+    // attach left to start
+    // attach right to end
+    private static Node reverseAgain(Node node, int k) {
+        Node head = node;
+        Node prev=null, next;
+        Node endOfsublist;
+        Node startOfsublist;
+        Node previousEnd=null;
+        while(node!=null){
+            endOfsublist=node;
+            for(int i=1;i<=k;i++){
+                next=node.next;
+                node.next=prev;
+                prev=node;
+                node=next;
+            }
+            if(previousEnd!=null){
+                previousEnd.next = prev;
+            }
+            endOfsublist.next=node;
+            previousEnd = endOfsublist;
+        }
+
+        return node;
+
     }
+}
 
